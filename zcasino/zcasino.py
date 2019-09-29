@@ -24,13 +24,13 @@ if numUser != numTable and numUser % 2 == numTable % 2:
         print("""
               You loose but at least you have the same 'Black' color.
               You can keep half of your bet which is """ 
-              + str(math.ceil(bet / 2)) + " EUR")
+              + str(math.ceil(bet / 2)) + " EUR.\n")
     #Otherwise it is red, so print the message
     else:
         print("""
               You loose but at least you have the same 'red' color.
               You can keep half of your bet which is """ 
-              + str(math.ceil(bet / 2)) + " EUR")
+              + str(math.ceil(bet / 2)) + " EUR.\n")
 else:
     print("Sorry, You lose.") # If nothing matches, the user loose.
 
