@@ -1,3 +1,6 @@
+#-*-coding:utf-8-*
+
+import os
 import random
 import math
 
@@ -15,7 +18,7 @@ print ("You've bet {} EUR".format(bet))
 
 if numUser == numTable: # if the number matches, the user wins.
     # Print the winning message
-    print("Congratulations! You win" + str(bet * 3)  + "EUR")
+    print("Congratulations! You win", str(bet * 3), "EUR")
 
 # if numbers didn't match but the remainders are the same:
 if numUser != numTable and numUser % 2 == numTable % 2:
@@ -24,13 +27,15 @@ if numUser != numTable and numUser % 2 == numTable % 2:
         print("""
               You loose but at least you have the same 'Black' color.
               You can keep half of your bet which is """ 
-              + str(math.ceil(bet / 2)) + " EUR.\n")
+              , str(math.ceil(bet / 2)), " EUR.\n")
     #Otherwise it is red, so print the message
     else:
         print("""
               You loose but at least you have the same 'red' color.
               You can keep half of your bet which is """ 
-              + str(math.ceil(bet / 2)) + " EUR.\n")
+              , str(math.ceil(bet / 2)), " EUR.\n")
 else:
     print("Sorry, You lose.") # If nothing matches, the user loose.
 
+# Pause for windows user
+os.system("pause")
