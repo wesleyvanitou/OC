@@ -17,13 +17,13 @@ The project will be stored in 3 files:
 Player: Wesley
 Trial left: 06 out of 07
 
- +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
+#  +---+
+#   |   |
+#       |
+#       |
+#       |
+#       |
+# =========
 T******ER
 
 Enter a letter:
