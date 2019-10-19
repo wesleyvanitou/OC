@@ -14,8 +14,8 @@ The project will be stored in 3 files:
   blank. The game has to display the number of trials left next to 
   the player name
 
-Player: Wesley
-Trial left: 06 out of 07
+  Player: Wesley
+  Trial left: 06 out of 07
 
 #  +---+
 #   |   |
@@ -32,14 +32,14 @@ Enter a letter:
 - The scoreboard (scores.py)
   When the user will finish the game the scoreboard will be printed.
   SCORES
-  01 - Wesley - 12 words
-  02 - Alpha - 08 words
-  03 - Steeve - 01 words
-  04 -
-  05 -
+  - 01 - Wesley - 12 words
+  - 02 - Alpha - 08 words
+  - 03 - Steeve - 01 words
+  - 04 -
+  - 05 -
 
 - The game assets (assets.py)
-
+  This file will have all the words, the trial left
 - The game functions
   So what type of functions will be in the file?
   - The function that will encrypt the words
