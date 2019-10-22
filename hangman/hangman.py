@@ -19,5 +19,6 @@ username = checker().capitalize() # Check if symbols in the username
 os.system('cls' if os.name == 'nt' else 'clear')
 
 
-
-print(f"Hi {username}, Let's begin.")
+score = scoreboard(username)
+print(f"your score is {score[username]}".upper())
+print(hangmanpics[0])

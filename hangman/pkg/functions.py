@@ -26,15 +26,16 @@ create a new one and add the user into it."""
         with open('scores', 'rb') as F:
             S = pickle.load(F)
             if username in list(S.keys()):
-                print(f"Welcome back {username}")
+                print(f"Welcome back {username}".upper())
             else:
                 S[username] = 0
-                print(f"Welcome {username}")
+                print(f"Welcome {username}".upper())
     except:
         with open('scores', 'wb') as F:
             S = {username: 0}
             pickle.dump(S, F)
-            print(f"Welcome {username}")
+            print(f"Empty file. Welcome {username}".upper())
+    return S
 
 #def match(letter, word):
 #   """The function will take the word, mask it then analyze if
