@@ -56,4 +56,4 @@ words = ( 'apple apricot avocado banana cherry coconut cucumber'
           'melon orange papaya peach plantain tamarind').split()
 
 # Symbols to scan in name
-symbols = "!@#$%^&*()_+<>,.\/?|[]{}"
+symbols = "!@#$%^&*()_+<>,./?|[]{}"
