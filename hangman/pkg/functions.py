@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*- from .tools import * import pickle # Check if the nickname is valid 
 
+import os
 from .tools import symbols
 import pickle
 
 
-def checker():
+def username():
     """ The program will check if there aren't any special
 characters in the name of the users."""
     while True:
@@ -37,3 +38,16 @@ create a new one and add the user into it."""
             print(f"Empty file. Welcome {username}".upper())
     return S
 
+def checker(random, L=""):
+    W = "_" * len(random)
+    print(random)
+    while random != W:
+        print(W.upper())
+        letter = input("Enter letter: ")
+        L += letter
+        hide = list("_" * len(random))
+        for i, y in enumerate(random):
+            if y in L:
+                hide[i] = random[i]
+                W = "".join(hide)
+        os.system('cls' if os.name == 'nt' else 'clear')
