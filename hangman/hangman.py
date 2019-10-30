@@ -7,7 +7,7 @@ from random import choice
 
 print(f"""
 welcome to the hangman game!")
-{hangmanpics[6]}\n
+{hangmanpics[7]}\n
 the goal is to find the word with
 enough guessed letters. you have 7 chances
 before losing. the remaining trial will be
@@ -24,6 +24,26 @@ input("press enter to start".upper())
 os.system('cls' if os.name == 'nt' else 'clear')
 
 random = choice(words)
+W = "_" * len(random)
 
-checker(random)
+trials = len(hangmanpics)
 
+hangman = True
+
+while hangman:
+    W, score = checker(random)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if W:
+        print(f"""you win. the word was '{W}.'
+        your score is {score} point(s) """.upper()) 
+        hangman = False
+    else:
+        print("you loose. the word was {W}")
+        quit = input("quit")
+        if quit == ('y' or 'Y'):
+            print("Bye")
+            hangman = False
+
+
+
+os.system("pause")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- from .tools import * import pickle # Check if the nickname is valid 
 
 import os
-from .tools import symbols
+from .tools import *
 import pickle
 
 
@@ -19,6 +19,12 @@ characters in the name of the users."""
             print(f"Symbols {y} are not allowed".upper())
         else: 
             return username
+
+def score():
+    with open('score', 'wb') as F:
+        S = pickle.load(F)
+        S[username] = score
+        
 
 def scoreboard(username):
     """The function will check if the scoreboard exist, if not,
@@ -38,16 +44,27 @@ create a new one and add the user into it."""
             print(f"Empty file. Welcome {username}".upper())
     return S
 
-def checker(random, L=""):
+def checker(random, L="", i=0):
+    """ The function will test if the letters are in the word"""
     W = "_" * len(random)
-    print(random)
-    while random != W:
-        print(W.upper())
-        letter = input("Enter letter: ")
+    found = True
+    while random != W and i < len(hangmanpics):
+        print("HANGMAN GAME")
+        print(random)
+        print(hangmanpics[i])
+        print(W.upper(), "\n")
+        letter = input("ENTER LETTER HERE: ")
         L += letter
         hide = list("_" * len(random))
-        for i, y in enumerate(random):
-            if y in L:
-                hide[i] = random[i]
-                W = "".join(hide)
+        if letter in random:
+            for n, l in enumerate(random):
+                if l in L:
+                    hide[n] = random[n]
+                    W = "".join(hide)
+                    if W == random:
+                        score = len(hangmanpics) - i
+                        return W, score
+        if letter not in random:
+            L = L[:-1]
+            i += 1
         os.system('cls' if os.name == 'nt' else 'clear')
