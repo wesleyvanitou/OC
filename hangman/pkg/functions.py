@@ -20,13 +20,17 @@ characters in the name of the users."""
         else: 
             return username
 
-def score():
-    with open('score', 'wb') as F:
-        S = pickle.load(F)
-        S[username] = score
-        
+def register(score, username, user_score):
+    print("SCORES")
+    for value, key in score.items():
 
-def scoreboard(username):
+        print(f"{key} ", value)
+
+    with open('scores', 'wb') as F:
+        score[username] = user_score
+        pickle.dump(score, F)
+
+def score(username):
     """The function will check if the scoreboard exist, if not,
 create a new one and add the user into it."""
     try:
@@ -50,7 +54,6 @@ def checker(random, L="", i=0):
     found = True
     while random != W and i < len(hangmanpics):
         print("HANGMAN GAME")
-        print(random)
         print(hangmanpics[i])
         print(W.upper(), "\n")
         letter = input("ENTER LETTER HERE: ")
@@ -62,8 +65,8 @@ def checker(random, L="", i=0):
                     hide[n] = random[n]
                     W = "".join(hide)
                     if W == random:
-                        score = len(hangmanpics) - i
-                        return W, score
+                        user_score = len(hangmanpics) - i
+                        return W, user_score
         if letter not in random:
             L = L[:-1]
             i += 1

@@ -17,8 +17,8 @@ username = username().capitalize() # Check if symbols in the username
 print("\n")
 
 
-score = scoreboard(username)
-print(f"your score is {score[username]}\n")
+score = score(username)
+print(f"your score is {score[username]}\n".upper())
 input("press enter to start".upper())
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -31,19 +31,18 @@ trials = len(hangmanpics)
 hangman = True
 
 while hangman:
-    W, score = checker(random)
+    W, user_score = checker(random)
     os.system('cls' if os.name == 'nt' else 'clear')
     if W:
-        print(f"""you win. the word was '{W}.'
-        your score is {score} point(s) """.upper()) 
+        print(f"""you win. the word is '{W}.'
+your score is {user_score} point(s) """.upper()) 
         hangman = False
+
+        user_score += score[username]
+        score[username] = user_score
+        register(score, username, user_score)
     else:
         print("you loose. the word was {W}")
-        quit = input("quit")
-        if quit == ('y' or 'Y'):
-            print("Bye")
-            hangman = False
+        hangman = False
 
 
-
-os.system("pause")
