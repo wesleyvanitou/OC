@@ -40,9 +40,13 @@ your score is {user_score} point(s) """.upper())
 
         user_score += score[username]
         score[username] = user_score
+        print()
         register(score, username, user_score)
     else:
-        print("you loose. the word was {W}")
-        hangman = False
+        print("you loose. the word was {W}".upper())
+        quit = print("Do you want to continue")
+        if quit is ('y' or 'Y'):
+            hangman = False
+        else: continue
 
 
