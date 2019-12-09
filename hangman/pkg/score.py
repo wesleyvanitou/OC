@@ -5,6 +5,9 @@ import pickle
 def score(username):
     """The function will check if the scoreboard exist, if not,
 create a new one and add the user into it."""
+
+# If the with fail to open the file it will raise an error and create
+# a new file
     try:
         with open('scores', 'rb') as F:
             S = pickle.load(F)
@@ -17,5 +20,5 @@ create a new one and add the user into it."""
         with open('scores', 'wb') as F:
             S = {username: 0}
             pickle.dump(S, F)
-            print(f"Empty file. Welcome {username}".upper())
+            print(f"Welcome for the first time of the game {username}".upper())
     return S
