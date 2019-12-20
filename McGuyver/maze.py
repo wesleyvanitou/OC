@@ -1,31 +1,28 @@
+from .assets.grid import G
+from random import sample
+
 class Maze:
 
     def __init__(self):
-        self.mc_guyver = mc_guyver
-        self.items = items
-        self.guardian = guardian
+        self.paths = ""
+        self.walls = ""
 
-    def grid(self):
+    def grid(self, grid):
+        """test"""
+        self.items = "$"
 
-        self.wall = "*"
-        self.passage = "."
-        self.grid_size = 15
-        G = []
+        with open('grid').split() as G:
+            G = grid.read().split()
+            self.paths = \
+            [(x, y) for x, y in enumerate(G) for y, symbol in enumerate(y) if symbol == "."]
 
-        while len(G) <= GRID_SIZE:
-            row = []
-            while row <= self.grid_size:
-                row.append(self.wall)
-            G.append(row)
+            self.walls = \
+            [(x, y) for x, y in enumerate(G) for y, symbol in enumerate(y) if symbol == "*"]
 
-    def move(self, x, y):
-        self.x, self.y = x, y
-        self.start = mc_guyver(start)
+        [
 
-        while x and y == self.passage:
-            #Move Mc Guyver
-        #else:
-            #Return error
+
+
 
 
     def main():
