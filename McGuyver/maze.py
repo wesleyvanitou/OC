@@ -1,31 +1,33 @@
-from .assets.grid import G
 from random import sample
 
 class Maze:
 
     def __init__(self):
-        self.paths = ""
-        self.walls = ""
+        self.player = []
+        self.guardian = []
+        self.paths = []
+        self.walls = []
+        self.items = "3"
 
-    def grid(self, grid):
-        """test"""
-        self.items = "$"
+    def grid(self):
+        """ Generate the coordinates of the grid elements"""
+        with open('grid') as grid: # Open grid file as var grid
+            grid = grid.readlines()
 
-        with open('grid').split() as G:
-            G = grid.read().split()
-            self.paths = \
-            [(x, y) for x, y in enumerate(G) for y, symbol in enumerate(y) if symbol == "."]
+            # Search for the x, y coordinates for the path
 
-            self.walls = \
-            [(x, y) for x, y in enumerate(G) for y, symbol in enumerate(y) if symbol == "*"]
+        for n_lines, lines in enumerate(grid):
+            for  n_col, colunms in enumerate(lines):
+                if colunms == "S":
+                    self.player.append((n_lines, n_col))
+                elif colunms == "G":
+                    self.guardian.append((n_lines, n_col))
+                elif colunms == ".":
+                    self.paths.append((n_lines, n_col))
+                else:
+                    self.walls.append((n_lines, n_col))
 
-        [
+        # Set 3 random place for the items
+        xy_items = sample(self.paths, k=3)
 
 
-
-
-
-    def main():
-        Maze.grid()
-
-Maze.main()
