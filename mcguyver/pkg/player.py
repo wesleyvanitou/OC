@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from maze import Maze
+import maze
 
-maze = Maze()
 
-class Hero(Maze):
-    """Hero's behavior's within the maze"""
+class Hero:
+    """Constructor"""
 
-    def __init__(self):
-        """Initialize the attribute"""
+    def __init__(self, maze):
+        """Constructor"""
         self.locate = maze.player
         self.maze = maze
-        self.grab = {}
-
-
+        self.grab = []
 
     def controller(self, joystick):
         """This class creates the controller
@@ -33,12 +30,25 @@ class Hero(Maze):
 
     def move(self, joystick):
         """This method will allows the player to move."""
-        if joystick in maze.paths:
+        if joystick in maze.path:
             self.locate = joystick
-        for key, value in maze.items.items():
-            if value in joystick:
-                self.grab[key] = value
-                del maze.items[key]
+        if joystick in maze.item:
+            self.grab.append(maze.item.pop(joystick))
 
-        return self.locate, self.grab, maze.items
+        return joystick, self.grab, maze.item
 
+maze = maze.Maze()  
+maze.load("labyrinth.txt")
+
+hero = Hero(maze)
+item = maze.items()
+print(item)
+print("player location ", hero.locate)
+joystick = hero.controller("j")
+print("move to ", joystick)
+
+joystick, grab, item = hero.move(joystick)
+
+print(joystick)
+print(grab)
+print(item)

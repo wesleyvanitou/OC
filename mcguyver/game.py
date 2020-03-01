@@ -2,9 +2,11 @@
 
 import os
 
+from pkg import maze
 
-with open('pkg.maze.txt') as F:
-    G = F.readlines()
+maze = maze.Maze()
 
-print(G)
+maze.load("pkg/labyrinth.txt")
 
+R = maze.load(R)
+print(R)
