@@ -1,54 +1,45 @@
 # -*- coding: utf-8 -*-
 
-import maze
-
+from pkg import maze
 
 class Hero:
     """Constructor"""
 
     def __init__(self, maze):
         """Constructor"""
-        self.locate = maze.player
+        self.locate = \
+        self.initial = maze.player
         self.maze = maze
         self.grab = []
 
-    def controller(self, joystick):
+    def controller(self):
         """This class creates the controller
         for the player base on the VIM Editor
         navigation system:
-        h (Left), j (down),k (Up), l (Right)"""
+        h(←), j(↓), k(↑), l(→)"""
         x, y = self.locate
-        if joystick in "hH":
+        self.initial = (x, y)
+        # Depending of the playe's input, the coordinates will change
+        joystick = input("\nMove McGuyver \nh(←), j(↓), k(↑), l(→): ")
+        if joystick in "": # if no input, the player don't move
+            joystick = (x, y)
+        elif joystick in "hH": # Go Left
             joystick = (x, y - 1)
-        elif joystick in "jJ":
+        elif joystick in "jJ": #Go Down
             joystick = (x + 1, y)
-        elif joystick in "kK":
+        elif joystick in "kK": #Go Up
             joystick = (x - 1, y)
-        elif joystick in "lL":
+        elif joystick in "lL": #Go Right
             joystick = (x, y + 1)
         return joystick
 
     def move(self, joystick):
         """This method will allows the player to move."""
-        if joystick in maze.path:
+        if joystick in self.maze.path:
             self.locate = joystick
-        if joystick in maze.item:
-            self.grab.append(maze.item.pop(joystick))
+            if self.locate in self.maze.item:
+                self.grab.append(self.maze.item.pop(joystick))
+        elif joystick in self.maze.wall: #If wall then initial coordinates
+            self.locate = self.initial
 
-        return joystick, self.grab, maze.item
-
-maze = maze.Maze()  
-maze.load("labyrinth.txt")
-
-hero = Hero(maze)
-item = maze.items()
-print(item)
-print("player location ", hero.locate)
-joystick = hero.controller("j")
-print("move to ", joystick)
-
-joystick, grab, item = hero.move(joystick)
-
-print(joystick)
-print(grab)
-print(item)
+        return self.locate, self.grab, self.maze.item

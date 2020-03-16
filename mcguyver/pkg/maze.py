@@ -2,6 +2,7 @@
 
 from random import sample
 
+
 class Maze:
     """This class will contains all the parameters
     of the maze"""
@@ -12,13 +13,13 @@ class Maze:
         self.wall = []
         self.item = {}
         self.player = None
-        self.guardian = None
+        self.guard = None
 
     def load(self, filename):
-        """ Maze file loader"""
+        "Maze file loader"""
 
-        with open(filename) as F:
-            for x, row in enumerate(F):
+        with open(filename) as labyrinth:
+            for x, row in enumerate(labyrinth):
                 for y, col in enumerate(row):
                     coordinates = (x, y)
                     if col in ".PG":
@@ -26,29 +27,22 @@ class Maze:
                         if col in "P":
                             self.player = coordinates
                         if col in "G":
-                            self.guardian = coordinates
+                            self.guard = coordinates
                     else:
                         self.wall.append(coordinates)
-        return self.path, self.wall, self.player, self.guardian
+        return self.path, self.wall, self.player, self.guard
 
-    def items(self, number=3, i=0):
+    def items(self, number=3):
         """ This function will select 3 coordinates for the
-        items exlcuding the player and guardian"""
+        items exlcuding the player and guard"""
 
         item = "needle syringe tube".split()
 
         loc = sample([
             i for i in self.path
-            if i not in [self.player, self.guardian]], k=number)
+            if i not in [self.player, self.guard]], k=number)
 
-        for a, b in zip(loc, item):
-            self.item[a] = b
-        
+        for key, value in zip(loc, item):
+            self.item[key] = value
+
         return self.item
-
-#maze = Maze()
-#maze.load('labyrinth.txt')
-#print("paths\n", maze.path, "\n")
-#print("Player:\n", maze.player)
-#print("Guardian:\n", maze.guardian)
-#print("Items:\n", maze.items())
