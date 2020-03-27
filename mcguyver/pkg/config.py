@@ -24,15 +24,15 @@ SURFACE = ((maze.size[0] + 1) * SPRITE, (maze.size[1] + 1) * SPRITE)
 
 # Assets
 # Characters
-HERO = "i/MacGyver.png"
-GUARD = "i/Gardien.png"
+HERO = "i/item_player.png"
+GUARD = "i/item_guardian.png"
 
 # Items
 ITEM_SIZE = (20, 20)
 
-NEEDLE = "i/aiguille.png"
-TUBE = "i/tube_plastique.png"
-SYRINGE = "i/seringue.png"
+NEEDLE = "i/item_one.png"
+TUBE = "i/item_two.png"
+SYRINGE = "i/item_three.png"
 
 PATH = "i/path.png"
 WALL = "i/wall.png"

@@ -5,11 +5,11 @@
 # Standard libraries
 
 # Third party
-import pygame
+import os, pygame
 
 # Local applications
 from pkg import maze, config as cfg
-from pkg.hero import Hero, Behavior
+from pkg.hero import Behavior, Hero
 from pkg.guard import Guard
 from pkg.items import Items
 
@@ -35,27 +35,41 @@ class Display:
             Parameters
             ----------
 
-            Maze: Class
-                Initialize from the 'main.py' with
-                the maze's text file.
+            maze: class
+                Initialize 'Maze' from the __init__  file
+                with the 'labyrinth.txt'.
+            hero: class
+                Initialize the characteristics of the hero
+            guard: class
+                Initialize the characteristics of the Guardian
+            screen: obj
+                Generate the game's window
+            bg: pygame obj
+                Generate the surface where all the elements
+                will be display
+            # maze generator: loop
+                Generator paths and walls
         """
 
+        # Initialize the classes for internal use
+        # ---------------------------------------
         self.maze = maze
-        self.hero = Hero()
         self.guard = Guard()
-        self.items = Items()
-
-        self.running = False
+        self.behavior = Behavior()
+        self.hero = Hero()
 
         # Initialize Pygamem module
         pygame.init()
         pygame.display.set_caption("Mac Guyver: The ecsape")
 
 
-        # Set the dimension with the maze size tuple
+        # Maze's dimension
+        # ----------------
         self.screen = pygame.display.set_mode(cfg.SCREEN)
-        self.bg = pygame.Surface(cfg.SURFACE)
 
+        # Maze background generator
+        # -------------------------
+        self.bg = pygame.Surface(cfg.SURFACE)
         for coord in self.maze.path:
             paths = pygame.image.load(cfg.PATH)
             self.bg.blit(
@@ -70,28 +84,58 @@ class Display:
                     coord[0] * cfg.SPRITE,
                     coord[1] * cfg.SPRITE))
 
+#            self.sprites = pygame.sprite.Group()
+#            self.sprites.add(self.hero)
+
     def game(self):
-        self.running = True
-        while self.running:
+        """
+           GAME
+           ----
+           This is where the game will be displayed.
+
+               Items generator
+               ---------------
+               The items will be generated trhough a zip loop
+               with each value of the maze.item keys and a
+               random list of items.
+
+               Core
+               ----
+               The for loop goes trhough the the event.key
+               inside the hero's' controller to test the
+               direction and output the result.
+        """
+
+        # GAME
+        # ----
+        running = True
+        while running:
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(self.hero.img, self.hero.rect)
             self.screen.blit(self.guard.img, self.guard.rect)
-            
-            for key, images in zip(maze.item, (cfg.NEEDLE, cfg.SYRINGE, cfg.TUBE)):
+
+            # Items generator
+            # ---------------
+            for key, images in zip(
+                maze.item, (cfg.NEEDLE, cfg.SYRINGE, cfg.TUBE)):
+
                 self.images = pygame.transform.scale(
                     pygame.image.load(images), cfg.ITEM_SIZE)
-
                 self.all = self.images.get_rect()
-                self.all.x = maze.item[key][0] * cfg.SPRITE
-                self.all.y = maze.item[key][1] * cfg.SPRITE
+                self.all.x = key[0] * cfg.SPRITE
+                self.all.y = key[1] * cfg.SPRITE
                 self.screen.blit(self.images, self.all)
 
+            # Core
+            # ----
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    running = False
                     print("Quit the game")
+                elif event.type == pygame.KEYDOWN:
+                    self.behavior.locate = self.behavior.move(
+                        self.behavior.controller(event.key))
+                    print(self.behavior.locate)
+                    print(maze.item)
             pygame.display.update()
-#        else: 
-
-
         pygame.quit()

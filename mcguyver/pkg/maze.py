@@ -52,15 +52,15 @@ class Maze:
             if i not in [self.hero, self.guard]], k=number)
 
         for key, value in zip(itemlist, location):
-            self.item[key] = value
+            self.item[value] = key
 
 # File test
 #maze = Maze("pkg/labyrinth.txt")
 #x, y = maze.size
 #print(maze.guard)
 #print(maze.item)
-#x = maze.item["needle"][0]
-#print(x)
+#for key in maze.item:
+#    print(key[1])
 #for k in maze.item:
 #    print(maze.item[k][0], maze.item[k][1])
 #

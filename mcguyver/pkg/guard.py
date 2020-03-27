@@ -26,17 +26,3 @@ class Guard(pygame.sprite.Sprite):
         self.rect = self.img.get_rect()
         self.rect.x = maze.guard[0] * cfg.SPRITE
         self.rect.y = maze.guard[1] * cfg.SPRITE
-
-
-
-#class Behavior:
-#    """Constructor"""
-#
-#    def __init__(self):
-#        """Constructor"""
-#        self.maze = maze
-#        self.locate = \
-#        self.initial = maze.hero
-#        self.grab = []
-#        self.joystick = None
-#        self.pressed = {}
