@@ -9,7 +9,7 @@
 import pygame
 
 # Local applications
-from pkg.settings import config as cfg, maze
+from ..settings import config as cfg, maze
 #+++++++++++++++++++++++++
 
 class Guard(pygame.sprite.Sprite):

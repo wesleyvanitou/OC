@@ -8,7 +8,7 @@
 # Third party
 import pygame
 # Local applications
-from pkg.settings import config as cfg, maze
+from ..settings import config as cfg, maze
 #+++++++++++++++++++++++++
 
 
@@ -18,7 +18,7 @@ class Behavior():
     def __init__(self):
         """Constructor"""
         self.locate = \
-        self.initial = maze
+        self.initial = maze.hero
         self.grab = []
         self.stuff = 3
 
@@ -31,11 +31,11 @@ class Behavior():
         self.initial = (x, y)
         if key == pygame.K_LEFT:
             moved = (x - 1, y)
-        if key == pygame.K_DOWN:
+        elif key == pygame.K_DOWN:
             moved = (x, y + 1)
-        if key == pygame.K_UP:
+        elif key == pygame.K_UP:
             moved = (x, y - 1)
-        if key == pygame.K_RIGHT:
+        elif key == pygame.K_RIGHT:
             moved = (x + 1, y)
         return moved
 
@@ -62,8 +62,8 @@ class Hero(pygame.sprite.Sprite, Behavior):
             pygame.image.load(cfg.HERO), cfg.ITEM_SIZE)
         self.rect = self.img.get_rect()
 
-#    def update(self):
-#        """ Update of the Hero mouvement"""
+    def update(self):
+        """ Update of the Hero mouvement"""
         x, y = self.locate
         self.rect.x = x * cfg.SPRITE
         self.rect.y = y * cfg.SPRITE

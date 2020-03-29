@@ -35,9 +35,6 @@ class Display:
             Parameters
             ----------
 
-            maze: class
-                Initialize 'Maze' from the __init__  file
-                with the 'labyrinth.txt'.
             hero: class
                 Initialize the characteristics of the hero
             guard: class
@@ -72,6 +69,7 @@ class Display:
         # Maze background generator
         # -------------------------
         self.bg = pygame.Surface(surface)
+
         for coord in maze.path:
             paths = pygame.image.load(cfg.PATH)
             self.bg.blit(
@@ -139,8 +137,8 @@ class Display:
                     self.hero.grab = self.behavior.move(
                         self.behavior.controller(event.key))
                     print(self.behavior.locate)
-                    print(maze.item)
-                    print("Grab", self.behavior.grab)
+#                    print(maze.item)
+#                    print("Grab", self.behavior.grab)
                     if self.behavior.locate == maze.guard:
                         if len(self.behavior.grab) == cfg.NB_ITEMS:
                             running = False
