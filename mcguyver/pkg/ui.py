@@ -3,18 +3,18 @@
 #+++++++++IMPORT++++++++++
 
 # Standard libraries
-
+import os
 # Third party
-import os, pygame
+import pygame
 
 # Local applications
-from pkg import maze, config as cfg
-from pkg.hero import Behavior, Hero
-from pkg.guard import Guard
-from pkg.items import Items
+from pkg.settings import config as cfg
+from pkg.settings  import maze
+#from .settings.maze import Maze
+from pkg.sprites.hero import Hero, Behavior
+from pkg.sprites.guard import Guard
 
 #+++++++++++++++++++++++++
-
 
 class Display:
     """
@@ -53,7 +53,6 @@ class Display:
 
         # Initialize the classes for internal use
         # ---------------------------------------
-        self.maze = maze
         self.guard = Guard()
         self.behavior = Behavior()
         self.hero = Hero()
@@ -62,22 +61,25 @@ class Display:
         pygame.init()
         pygame.display.set_caption("Mac Guyver: The ecsape")
 
-
         # Maze's dimension
         # ----------------
-        self.screen = pygame.display.set_mode(cfg.SCREEN)
+        screen =\
+        surface = ((maze.size[0] + 1) * cfg.SPRITE,
+                   (maze.size[1] + 1) * cfg.SPRITE)
+
+        self.screen = pygame.display.set_mode(screen)
 
         # Maze background generator
         # -------------------------
-        self.bg = pygame.Surface(cfg.SURFACE)
-        for coord in self.maze.path:
+        self.bg = pygame.Surface(surface)
+        for coord in maze.path:
             paths = pygame.image.load(cfg.PATH)
             self.bg.blit(
                 paths, (
                     coord[0] * cfg.SPRITE,
                     coord[1] * cfg.SPRITE))
 
-        for coord in self.maze.wall:
+        for coord in maze.wall:
             walls = pygame.image.load(cfg.WALL)
             self.bg.blit(
                 walls, (
@@ -85,7 +87,7 @@ class Display:
                     coord[1] * cfg.SPRITE))
 
 #            self.sprites = pygame.sprite.Group()
-#            self.sprites.add(self.hero)
+#            self.sprites.add(Hero(self.behavior.locate))
 
     def game(self):
         """
@@ -133,9 +135,22 @@ class Display:
                     running = False
                     print("Quit the game")
                 elif event.type == pygame.KEYDOWN:
-                    self.behavior.locate = self.behavior.move(
+                    self.behavior.locate = \
+                    self.hero.grab = self.behavior.move(
                         self.behavior.controller(event.key))
                     print(self.behavior.locate)
                     print(maze.item)
+                    print("Grab", self.behavior.grab)
+                    if self.behavior.locate == maze.guard:
+                        if len(self.behavior.grab) == cfg.NB_ITEMS:
+                            running = False
+                            print("You win!")
+                        else:
+                            running = False
+                            print("You loose!")
+
+#            self.sprites.update()
+#            self.sprites.draw(self.screen)
+
             pygame.display.update()
         pygame.quit()

@@ -9,8 +9,7 @@
 import pygame
 
 # Local applications
-from pkg import maze
-from pkg import config as cfg, ui
+import config as cfg
 #+++++++++++++++++++++++++
 
 class Items(pygame.sprite.Sprite):
@@ -20,10 +19,10 @@ class Items(pygame.sprite.Sprite):
         # Find a way to extract the # items.
     def __init__(self):
         super().__init__() # Superclass constructor
-        for key, images in zip(maze.item, (cfg.NEEDLE, cfg.SYRINGE, cfg.TUBE)):
+        for key, images in zip(cfg.maze.item, (cfg.NEEDLE, cfg.SYRINGE, cfg.TUBE)):
             self.img = pygame.transform.scale(
                 pygame.image.load(images), cfg.ITEM_SIZE)
 
             self.rect = self.img.get_rect()
-            self.rect.x = maze.item[key][0] * cfg.SPRITE
-            self.rect.y = maze.item[key][1] * cfg.SPRITE
+            self.rect.x = cfg.maze.item[key][0] * cfg.SPRITE
+            self.rect.y = cfg.maze.item[key][1] * cfg.SPRITE

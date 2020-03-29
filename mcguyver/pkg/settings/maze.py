@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""This is the maze generattor."""
+
 #+++++++++IMPORT++++++++++
 
 # Standard libraries
 from random import sample
 
 # Third party
-
 # Local applications
+from .config import NB_ITEMS
+#+++++++++++++++++++++++++
 
 class Maze:
     """This class will contains all the parameters
@@ -41,7 +44,7 @@ class Maze:
                     else:
                         self.wall.append(self.size)
 
-    def _items(self, number=3):
+    def _items(self):
         """ This function will select 3 coordinates for the
         items exlcuding the player and guard"""
 
@@ -49,13 +52,15 @@ class Maze:
 
         location = sample([
             i for i in self.path
-            if i not in [self.hero, self.guard]], k=number)
+            if i not in [self.hero, self.guard]], k=NB_ITEMS)
 
         for key, value in zip(itemlist, location):
             self.item[value] = key
 
+
+
 # File test
-#maze = Maze("pkg/labyrinth.txt")
+#maze = Maze("settings/maze.txt")
 #x, y = maze.size
 #print(maze.guard)
 #print(maze.item)

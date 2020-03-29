@@ -10,7 +10,7 @@ import os
 
 # Local applications
 from  pkg.ui import Display
-from pkg.hero import Hero, Behavior
+#from pkg.hero import Hero, Behavior
 
 #+++++++++++++++++++++++++
 

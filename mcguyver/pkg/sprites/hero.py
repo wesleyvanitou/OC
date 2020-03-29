@@ -8,7 +8,7 @@
 # Third party
 import pygame
 # Local applications
-from pkg import config as cfg, maze
+from pkg.settings import config as cfg, maze
 #+++++++++++++++++++++++++
 
 
@@ -17,9 +17,8 @@ class Behavior():
 
     def __init__(self):
         """Constructor"""
-        self.maze = maze
         self.locate = \
-        self.initial = maze.hero
+        self.initial = maze
         self.grab = []
         self.stuff = 3
 
@@ -42,11 +41,11 @@ class Behavior():
 
     def move(self, moved):
         """This method will allows the player to move."""
-        if moved in self.maze.path:
+        if moved in maze.path:
             self.locate = moved
-            if self.locate in self.maze.item:
-                self.grab.append(self.maze.item.pop(moved))
-        elif moved in self.maze.wall: #If wall then initial coordinates
+            if self.locate in maze.item:
+                self.grab.append(maze.item.pop(moved))
+        elif moved in maze.wall: #If wall then initial coordinates
             self.locate = self.initial
 
         return self.locate#,self.grab#, self.maze.item
@@ -58,6 +57,7 @@ class Hero(pygame.sprite.Sprite, Behavior):
     def __init__(self):
         super().__init__()
         Behavior.__init__(self)
+        self.locate = maze.hero
         self.img = pygame.transform.scale(
             pygame.image.load(cfg.HERO), cfg.ITEM_SIZE)
         self.rect = self.img.get_rect()

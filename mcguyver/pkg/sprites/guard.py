@@ -9,7 +9,7 @@
 import pygame
 
 # Local applications
-from pkg import config as cfg, maze
+from pkg.settings import config as cfg, maze
 #+++++++++++++++++++++++++
 
 class Guard(pygame.sprite.Sprite):
@@ -17,7 +17,6 @@ class Guard(pygame.sprite.Sprite):
     carastetictics of Mac Guyver"""
 
     def __init__(self):
-        self.maze = maze
         super().__init__() # Superclass constructor
 
         self.img = pygame.transform.scale(
