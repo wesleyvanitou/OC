@@ -12,23 +12,21 @@ from ..settings import config as cfg, maze
 #+++++++++++++++++++++++++
 
 
-class Behavior():
+class Hero():
     """Constructor"""
 
     def __init__(self):
         """Constructor"""
-        self.locate = \
-        self.initial = maze.hero
         self.grab = []
-        self.stuff = 3
+        self.stuck = maze.hero
 
-    def controller(self, key):
+    def controller(self, key, hero):
         """This class creates the controller
         for the player base on the VIM Editor
         navigation system:
         h(←), j(↓), k(↑), l(→)"""
-        x, y = self.locate
-        self.initial = (x, y)
+        x, y = hero
+        self.stuck = (x, y)
         if key == pygame.K_LEFT:
             moved = (x - 1, y)
         elif key == pygame.K_DOWN:
@@ -42,28 +40,30 @@ class Behavior():
     def move(self, moved):
         """This method will allows the player to move."""
         if moved in maze.path:
-            self.locate = moved
-            if self.locate in maze.item:
+            maze.hero = moved
+            if maze.hero in maze.item:
                 self.grab.append(maze.item.pop(moved))
         elif moved in maze.wall: #If wall then initial coordinates
-            self.locate = self.initial
+            maze.hero = self.stuck
 
-        return self.locate#,self.grab#, self.maze.item
+        return maze.hero
 
-class Hero(pygame.sprite.Sprite, Behavior):
-    """ This class defines the visual
+class HeroSpr(pygame.sprite.Sprite):
+    """This class defines the visual
     carastetictics of Mac Guyver"""
 
-    def __init__(self):
-        super().__init__()
-        Behavior.__init__(self)
-        self.locate = maze.hero
+    def __init__(self, hero):
+        self.hero = hero
+        pygame.sprite.Sprite.__init__(self)
         self.img = pygame.transform.scale(
             pygame.image.load(cfg.HERO), cfg.ITEM_SIZE)
-        self.rect = self.img.get_rect()
+
+        x, y = self.hero[0] * cfg.SPR_X, self.hero[1] * cfg.SPR_Y
+        self.rect = self.img.get_rect().move(x, y)
 
     def update(self):
-        """ Update of the Hero mouvement"""
-        x, y = self.locate
-        self.rect.x = x * cfg.SPRITE
-        self.rect.y = y * cfg.SPRITE
+        """Manage the display's update 'of the hero's sprite
+        on the screen"""
+        x, y = self.hero
+        self.rect.x = x * cfg.SPR_X
+        self.rect.y = y * cfg.SPR_Y
