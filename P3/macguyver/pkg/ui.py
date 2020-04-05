@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
+"""
+This is the core of the game. The ui.py regroups all the
+elements needed for the game to work.
 
-#+++++++++IMPORT++++++++++
+"""
 
-# Standard libraries
-import os
-# Third party
+
+# +++++++++IMPORT++++++++++
+
+# A. Standard libraries
+# B. Third party
 import pygame
 
-# Local applications
-from pkg.settings import config as cfg, maze
-from pkg.sprites.hero import Hero, HeroSpr
-from pkg.sprites.guard import Guard
+# C. Local applications
+# c.i Settings
+from pkg.settings import config as c, maze
 
-#+++++++++++++++++++++++++
+# c.c Characters
+from pkg.sprites.guard import Guard
+from pkg.sprites.hero import Hero, HeroSpr
+from pkg.sprites.items import Items
+# +++++++++++++++++++++++++
+
 
 class Display:
     """
@@ -21,13 +30,18 @@ class Display:
         Here we'll initialize the maze to recuperates all the
         elements necessary to building it.
 
+        The '__init__(self)' will generates the maze structure
+        and background design.
+
         Methods
         -------
 
-        The 'game' method creates the visual environement to
-        display the game. Not that all the cfg are constants
-        located in the 'cfg.py' file.
+        game: pygame
+            The 'game' method creates the visual environement to
+            display the game. Not that all the parameters are
+            constants located in 'config.py' file.
     """
+
     def __init__(self):
         """
             Parameters
@@ -37,54 +51,45 @@ class Display:
                 Initialize the characteristics of the hero
             guard: class
                 Initialize the characteristics of the Guardian
-            screen: obj
+            screen: display
                 Generate the game's window
-            bg: pygame obj
+            bg: pygame display
                 Generate the surface where all the elements
                 will be display
             # maze generator: loop
                 Generator paths and walls
         """
 
-        # Initialize the classes for internal use
-        # ---------------------------------------
         self.guard = Guard()
         self.hero = Hero()
-        # Initialize Pygamem module
+
         pygame.init()
         pygame.display.set_caption("Mac Guyver: The ecsape")
 
-        # Maze's dimension
-        # ----------------
-        screen =\
-        surface = ((maze.size[0] + 1) * cfg.SPR_X,
-                   (maze.size[1] + 1) * cfg.SPR_Y)
+        self.screen =\
+            pygame.display.set_mode(maze.surface(1, 1))
 
-        self.screen = pygame.display.set_mode(screen)
+        self.bg =\
+            pygame.Surface(maze.surface(1, 1))
 
-        # Maze background generator
-        # -------------------------
-        self.bg = pygame.Surface(surface)
+        # Generate the background
 
+        # TODO: D. After the exam look for better
+        # background image implementation.
         for coord in maze.path:
-            paths = pygame.image.load(cfg.PATH)
             self.bg.blit(
-                paths, (
-                    coord[0] * cfg.SPR_X,
-                    coord[1] * cfg.SPR_Y))
+                c.TILES,
+                (coord[0] * c.SPR_X,
+                 coord[1] * c.SPR_Y), c.tiles(17, 11))
 
         for coord in maze.wall:
-            walls = pygame.image.load(cfg.WALL)
             self.bg.blit(
-                walls, (
-                    coord[0] * cfg.SPR_X,
-                    coord[1] * cfg.SPR_Y))
-
-            self.sprites = pygame.sprite.Group()
-            self.sprites.add(hero)
+                c.TILES,
+                (coord[0] * c.SPR_X,
+                 coord[1] * c.SPR_Y), c.tiles(13, 3))
 
     def game(self):
-        """
+        """ Core of the game.
            GAME
            ----
            This is where the game will be displayed.
@@ -95,7 +100,7 @@ class Display:
                with each value of the maze.item keys and a
                random list of items.
 
-               Core
+               core
                ----
                The for loop goes trhough the the event.key
                inside the hero's' controller to test the
@@ -106,24 +111,19 @@ class Display:
         # ----
         running = True
         while running:
+            # TODO: Create a press start image.
+            # blit the start sreen.
+            # if user press enter start the game
+            
             herospr = HeroSpr(maze.hero)
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(herospr.img, herospr.rect)
             self.screen.blit(self.guard.img, self.guard.rect)
 
             # Items generator
-            # ---------------
-            for key, images in zip(
-                maze.item, (cfg.NEEDLE, cfg.SYRINGE, cfg.TUBE)):
+            Items(self.screen)
 
-                self.images = pygame.transform.scale(
-                    pygame.image.load(images), cfg.SPR)
-                self.all = self.images.get_rect()
-                self.all.x = key[0] * cfg.SPR_X
-                self.all.y = key[1] * cfg.SPR_Y
-                self.screen.blit(self.images, self.all)
-
-            # Core
+            # core
             # ----
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -132,19 +132,13 @@ class Display:
                 elif event.type == pygame.KEYDOWN:
                     maze.hero = self.hero.move(
                         self.hero.controller(event.key, maze.hero))
-                    print(maze.hero, self.hero.stuck)
-                    print(maze.item)
-                    print("Grab", self.hero.grab)
                     if maze.hero == maze.guard:
-                        if len(self.hero.grab) == cfg.NB_ITEMS:
+                        if len(self.hero.grabbed) == c.NB_ITEMS:
+                            # TODO Create a winning blit image
                             running = False
-                            print("You win!")
                         else:
+                            # TODO Create a loosing blit image
                             running = False
-                            print("You loose!")
-
-#            self.sprites.update()
-#            self.sprites.draw(self.screen)
 
             pygame.display.update()
         pygame.quit()
