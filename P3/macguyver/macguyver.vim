@@ -141,7 +141,7 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
-edit pkg/ui.py
+edit pkg/sprites/hero.py
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -275,7 +275,7 @@ setlocal termmode=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=0
+setlocal textwidth=80
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
@@ -285,17 +285,15 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-25
-normal! zo
-let s:l = 1 - ((0 * winheight(0) + 28) / 57)
+let s:l = 90 - ((50 * winheight(0) + 28) / 57)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+90
 normal! 0
 wincmd w
 argglobal
-if bufexists("pkg/sprites/hero.py") | buffer pkg/sprites/hero.py | else | edit pkg/sprites/hero.py | endif
+if bufexists("pkg/settings/config.py") | buffer pkg/settings/config.py | else | edit pkg/settings/config.py | endif
 let s:cpo_save=&cpo
 set cpo&vim
 noremap <buffer> <F7> :call flake8#Flake8()
@@ -340,16 +338,16 @@ endif
 setlocal fixendofline
 setlocal foldcolumn=0
 setlocal foldenable
-setlocal foldexpr=SimpylFold#FoldExpr(v:lnum)
+setlocal foldexpr=0
 setlocal foldignore=#
 set foldlevel=99
 setlocal foldlevel=99
 setlocal foldmarker={{{,}}}
 set foldmethod=indent
-setlocal foldmethod=expr
+setlocal foldmethod=indent
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()\ .\ SimpylFold#FoldText()
+setlocal foldtext=foldtext()
 setlocal formatexpr=
 setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -422,15 +420,15 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 49 - ((46 * winheight(0) + 28) / 57)
+let s:l = 22 - ((21 * winheight(0) + 28) / 57)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-49
+22
 normal! 0
 wincmd w
 argglobal
-if bufexists("pkg/sprites/items.py") | buffer pkg/sprites/items.py | else | edit pkg/sprites/items.py | endif
+if bufexists("pkg/settings/maze.py") | buffer pkg/settings/maze.py | else | edit pkg/settings/maze.py | endif
 let s:cpo_save=&cpo
 set cpo&vim
 noremap <buffer> <F7> :call flake8#Flake8()
@@ -557,11 +555,11 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 1 - ((0 * winheight(0) + 28) / 57)
+let s:l = 65 - ((0 * winheight(0) + 28) / 57)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+65
 normal! 0
 wincmd w
 3wincmd w
@@ -569,13 +567,13 @@ exe 'vert 1resize ' . ((&columns * 79 + 119) / 239)
 exe 'vert 2resize ' . ((&columns * 79 + 119) / 239)
 exe 'vert 3resize ' . ((&columns * 79 + 119) / 239)
 tabnext 1
-badd +119 pkg/ui.py
-badd +0 pkg/sprites/hero.py
+badd +90 pkg/sprites/hero.py
+badd +88 pkg/ui.py
+badd +43 pkg/settings/config.py
+badd +11 pkg/sprites/items.py
 badd +7 main.py
-badd +38 pkg/settings/config.py
-badd +139 pkg/settings/maze.py
+badd +146 pkg/settings/maze.py
 badd +26 pkg/sprites/guard.py
-badd +1 pkg/sprites/items.py
 badd +1 pkg/__init__.py
 badd +2 pkg/settings/maze.txt
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
