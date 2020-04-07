@@ -1,6 +1,6 @@
-#MacGuyver maze
+# MacGuyver maze
 
-##Help Mac Guyver to escape!
+## Help Mac Guyver to escape!
 
 Simple maze that where you'll have to take all the items in the game before getting in front of the guardian.
 
