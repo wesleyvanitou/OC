@@ -112,9 +112,6 @@ class Display:
         # ----
         running = True
         while running:
-            # TODO: Create a press start image.
-            # blit the start sreen.
-            # if user press enter start the game
             herospr = HeroSpr(maze.hero)
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(self.guard.img, self.guard.rect)
@@ -140,5 +137,5 @@ class Display:
                             self.screen.blit(c.GAMEOVER, (0, 0))
                             running = False
             pygame.display.update()
-        time.sleep(2)
+        time.sleep(1)
         pygame.quit()

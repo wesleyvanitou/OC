@@ -95,7 +95,7 @@ class Maze:
         wall : list
             all the wall tuples
         """
-        with open(c.MAZES) as labyrinth:
+        with open(c.MAZE) as labyrinth:
             for y, row in enumerate(labyrinth):
                 for x, col in enumerate(row.strip()):
                     self.size = (x, y)

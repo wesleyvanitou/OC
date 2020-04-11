@@ -36,9 +36,3 @@ class Items(pygame.sprite.Sprite):
             self.rect.y = key[1] * c.SPR_Y
             # Take the display's screen to blit the items.
             screen.blit(self.images, self.rect)
-
-    def shrink(self):
-        """Scale down to 5 pixels when catched"""
-
-        shrink = ""
-        return shrink

@@ -5,7 +5,8 @@
 # +++++++++IMPORT++++++++++
 
 # Standard libraries
-
+import os
+from random import sample
 # Third party
 import pygame
 # Local applications
@@ -16,8 +17,9 @@ import pygame
 SPR_X, SPR_Y = 20, 20
 SPR = (SPR_X, SPR_Y)
 
-MAZES = "pkg/settings/mazes/01.txt"
-
+# Sample rambom maze file
+MAZE_FOLDER = "".join(sample(os.listdir('pkg/settings/mazes'), k=1))
+MAZE = f"pkg/settings/mazes/{MAZE_FOLDER}"
 # Characters
 HERO = "pkg/sprites/i/characters/macgyver.png"
 GUARD = "pkg/sprites/i/characters/guardian.png"
